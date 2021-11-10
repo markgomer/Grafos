@@ -26,7 +26,8 @@ public class Grafo {
         if(jaExisteVerticeComEsseRotulo) {
             resp = vertices.get(index);
         } else {
-            resp = new Vertice(rotulo);
+            int indice = this.getNumeroVertices() + 1;
+            resp = new Vertice(rotulo, indice);
             vertices.add(resp);
         }
         
@@ -36,6 +37,7 @@ public class Grafo {
         String rotulo = Integer.toString(x);
         return criaVertice(rotulo);
     }
+
 
     public Vertice getVertice(int index) {
         return this.vertices.get(index);
@@ -63,11 +65,21 @@ public class Grafo {
         v.cria_adjacencia(w);
         if(!grafoDirecionado) w.cria_adjacencia(v);
     }
+    /** * /
     public void cria_adjacencia(int i, int j) {
         Vertice v = criaVertice(Integer.toString(i));
         Vertice w = criaVertice(Integer.toString(j));
         cria_adjacencia(v, w);
     }
+    /** 
+     * Cria adjacência a partir dos índices de vértices já criados
+    */
+    public void cria_adjacencia(int i, int j) {
+        Vertice v = vertices.get(i);
+        Vertice w = vertices.get(j);
+        cria_adjacencia(v, w);
+    }
+    /** */
     public void cria_adjacencia(String a, String b) {
         Vertice v = criaVertice(a);
         Vertice w = criaVertice(b);
@@ -133,13 +145,28 @@ public class Grafo {
      * @param i indice do primeiro vertice
      * @param j indice do segundo vertice
      * @param peso novo peso entre os dois vertices
-     */
+     * /
     public void seta_peso(int i, int j, int peso) {
         Vertice v = vertices.get(pesquisar(Integer.toString(i)));
         Vertice w = vertices.get(pesquisar(Integer.toString(j)));
         v.setPeso(w, peso);
         if(!grafoDirecionado) w.setPeso(v, peso);
     }
+    /**
+     * Seta o peso de dois vértices adjacentes
+     * @param i índice do vértice origem 
+     * @param j índice do vértice destino
+     * @param peso
+     */
+    public void seta_peso(int i, int j, int peso) {
+        Vertice v = vertices.get(i);
+        Vertice w = vertices.get(j);
+        v.setPeso(w, peso);
+        if(!grafoDirecionado) w.setPeso(v, peso);
+    }
+
+
+
     public void seta_peso(String a, String b, int peso) {
         Vertice v = vertices.get(pesquisar(a));
         Vertice w = vertices.get(pesquisar(b));

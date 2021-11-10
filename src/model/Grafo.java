@@ -4,20 +4,35 @@ import java.util.LinkedList;
 import util.Bolha;
 
 public class Grafo {
+    /**Conjunto de vértices contido no grafo */
     private LinkedList<Vertice> vertices;
+    /**Tipo de ligação presente no grafo */
     private boolean grafoDirecionado;
 
-
+    /**
+     * cria um grafo vazio e direcionado
+     */
     public Grafo() {
         this.grafoDirecionado = true;
         vertices = new LinkedList<>();
     }
+    /**
+     * cria um grafo vazio e não direcionado
+     * @param grafoDirecionado indica se o grafo a ser criado será direcionado
+     */
     public Grafo(boolean grafoDirecionado) {
         this.grafoDirecionado = grafoDirecionado;
         vertices = new LinkedList<>();
     }
 
 
+    /**
+     * Cria um vértice e insere no grafo se
+     * vértice ainda não existe no grafo
+     * senão, retorna vértice que já existe
+     * @param rotulo rótulo a ser inserido no vértice
+     * @return Vertice criado ou já existente
+     */
     public Vertice criaVertice(String rotulo) {
         Vertice resp;
         int index = this.pesquisar(rotulo);
@@ -33,32 +48,49 @@ public class Grafo {
         
         return resp;
     }
+    /**
+     * cria vértice com rótulo equivalente ao inteiro fornecido
+     * @param x rótulo do novo vértice
+     * @return vértice criado
+     */
     public Vertice criaVertice(int x) {
         String rotulo = Integer.toString(x);
         return criaVertice(rotulo);
     }
 
-
+    /**
+     * fornece vértice correspondente ao índice enviado
+     * @param index índice do vértice dentro da lista "vertices"
+     * @return vértice da lista de vértices
+     */
     public Vertice getVertice(int index) {
         return this.vertices.get(index);
     }
 
+    /**
+     * @return LinkedList de todos os vértices contidos no grafo
+     */
     public LinkedList<Vertice> getVertices() {
         return this.vertices;
     }
 
 
     /**
-     * atualiza a informação do nó i com o valor V
-     * (que deve ser uma string) no grafo G
-     * @param i: índice do vértice
+     * altera rótulo do vértice no índice i
+     * @param i: índice do vértice na lista
      * @param novoRotulo: novo valor que o vértice irá tomar
      */
     public void seta_informacao(int i, String novoRotulo) {vertices.get(i).setRotulo(novoRotulo);}
     public void seta_informacao(Vertice v, String novoRotulo) {v.setRotulo(novoRotulo);}
 
 
-
+    /**
+     * Cria adjacencia entre dois vértices fornecidos
+     * insere vértices no grafo, caso já não estejam presentes
+     * se o grafo não for direcionado, também cria adjacência reversa
+     * @param v vértice origem
+     * @param w vértice destino
+     */
     public void cria_adjacencia(Vertice v, Vertice w) {
         v = criaVertice(v.rotuloToString());
         w = criaVertice(w.rotuloToString());
@@ -73,20 +105,33 @@ public class Grafo {
     }
     /** 
      * Cria adjacência a partir dos índices de vértices já criados
+     * @param i índice do vértice de origem
+     * @param j índice do vértice de destino
     */
     public void cria_adjacencia(int i, int j) {
         Vertice v = vertices.get(i);
         Vertice w = vertices.get(j);
         cria_adjacencia(v, w);
     }
-    /** */
+    /**
+     * cria adjacência entre dois vértices a partir dos rótulos.
+     * se um rótulo não existir em algum vértice do grafo, 
+     * um novo vértice é criado.
+     * @param a rótulo do vértice de origem
+     * @param b rótulo do vértice de destino
+     */
     public void cria_adjacencia(String a, String b) {
         Vertice v = criaVertice(a);
         Vertice w = criaVertice(b);
         cria_adjacencia(v, w);
     }
 
-
+    /**
+     * remove adjacência entre dois vértices fornecidos, presentes no grafo
+     * @param v vértice origem
+     * @param w vértice destino
+     * @return sinal de sucesso
+     */
     public boolean remove_adjacencia(Vertice v, Vertice w) {return v.remove_adjacencia(w);}
     public void remove_adjacencia(int i, int j) {
         Vertice v = vertices.get(i);
@@ -97,7 +142,9 @@ public class Grafo {
 
 
     /**
-     * procura rótulo e retorna indice do vertice
+     * procura um vértice dentro da lista de vértices do grafo
+     * @param rotulo rotulo a ser procurado
+     * @return índice do vértice encontrado, -1 se não for encontrado
      */
     public int pesquisar(String rotulo) {
         int resp = -1;
@@ -110,16 +157,25 @@ public class Grafo {
         }
         return resp;
     }
+    /**
+     * fornece o índice de um vértice do grafo
+     * @param v vértice procurado
+     * @return índice do vértice procurado
+     */
     public int pesquisar(Vertice v) {
         return this.vertices.indexOf(v);
     }
 
-
+    /**
+     * @return número de vértices contidos no grafo
+     */
     public int getNumeroVertices() {
         return vertices.size();
     }
 
-
+    /**
+     * @return número de arestas do grafo
+     */
     public int getNumeroArestas() {
         int resp = 0;
         for (Vertice v : vertices) resp += v.numeroArestas();
@@ -129,12 +185,21 @@ public class Grafo {
 
     /**
      * retorna o peso da adjacência entre i e j
+     * @param i índice do vértice de origem
+     * @param j índice do vértice de destino
+     * @return peso da adjacência
      */
     public int getPeso(int i, int j) {
         Vertice v = this.vertices.get(i);
         Vertice w = this.vertices.get(j);
         return v.getPeso(w);
     }
+    /**
+     * retorna o peso da adjacência entre v e w
+     * @param v vértice de origem
+     * @param w vértice de destino
+     * @return peso da adjacência
+     */
     public int getPeso(Vertice v, Vertice w) {
         return v.getPeso(w);
     }
@@ -166,7 +231,12 @@ public class Grafo {
     }
 
 
-
+    /**
+     * altera o peso entre dois vértices de rótulos fornecidos
+     * @param a rótulo do vértice de origem 
+     * @param b rótulo do vértice de destino
+     * @param peso novo peso entre os dois vértices
+     */
     public void seta_peso(String a, String b, int peso) {
         Vertice v = vertices.get(pesquisar(a));
         Vertice w = vertices.get(pesquisar(b));
@@ -188,15 +258,22 @@ public class Grafo {
 
 
     /**
-     * imprime a matriz de adjacências do grafo G
+     * imprime a lista de adjacências do grafo G
      */
     public void imprime_adjacencias() {for(Vertice v: vertices) System.out.println(v.toString());}
     
     //=====================================================================//
     
+    /**
+     * ordena lista vértices de acordo com a soma dos pesos de suas arestas
+     */
     private void sortVertices() {new Bolha(vertices).sort();}
 
 
+    /**
+     * exibe os vértices com X maiores graus
+     * @param x quantidade de vértices a serem exibidos
+     */
     public void xMaioresGraus(int x){
         this.sortVertices();
         for(int i = vertices.size()-1; i > vertices.size() - x - 1; i--) {
@@ -204,6 +281,10 @@ public class Grafo {
             System.out.println(v.toString());
         }
     }
+    /**
+     * exibe os vértices com X menores graus
+     * @param x quantidade de vértices a serem exibidos
+     */
     public void xMenoresGraus(int x){
         this.sortVertices();
         for(int i = 0; i < x; i++) {
@@ -258,18 +339,6 @@ public class Grafo {
         Vertice o = vertices.get(pesquisar(origem));
         return buscaPorDistancia(o, distancia);
     }
-
-
-    //========================================================================
-
-
-    //===========================================================
-
-
-
-    
-
-
 
 
 }

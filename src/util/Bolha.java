@@ -7,8 +7,6 @@ import java.util.Collections;
 
 /**
  * Metodo de ordenacao da bolha
- * @author Max do Val Machado
- * @version 3 08/2020
  */
 public class Bolha {
 	private LinkedList<Vertice> array;

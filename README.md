@@ -60,6 +60,7 @@ O problema deve ser modelado pela equipe e cópias de grafos ou códigos, mesmo 
 --- 
 
 **Formato Pajek:**
+
 *Vertices  8
 
 1 "Actor 1"

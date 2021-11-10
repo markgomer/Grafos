@@ -15,23 +15,23 @@ Rafael Vitagliano Tannenbaum Nuñez
 
 ## Título do Projeto: Definição e Construção de uma Aplicação de Grafos de Alta Dimensionalidade
 
-Características do Projeto:
+### Características do Projeto:
 
-Valor: 100% da nota do RA4 para a disciplina de Resolução de Problemas com Grafos;
+- Valor: 100% da nota do RA4 para a disciplina de Resolução de Problemas com Grafos;
 
-Equipe: Máximo em 4;
+- Equipe: Máximo em 4;
 
-Linguagem: JAVA ou Python e
+- Linguagem: JAVA ou Python e
 
-Data da Entrega: 16/11/2021
+- Data da Entrega: 16/11/2021.
 
-Requisitos de entrega:
+### Requisitos de entrega:
 
-Entregar código-fonte em arquivo;
+- Entregar código-fonte em arquivo;
 
-Entregar código-fonte impresso; e
-
-Realizar teste de autoria.
+- Entregar código-fonte impresso; e
+ 
+- Realizar teste de autoria.
 
 ---
 
@@ -60,41 +60,24 @@ O problema deve ser modelado pela equipe e cópias de grafos ou códigos, mesmo 
 --- 
 
 **Formato Pajek:**
-
+ ```
 *Vertices  8
-
 1 "Actor 1"
-
 2 "Actor 2"
-
 3 "Actor 3"
-
 4 "Event 1"
-
 5 "Event 2"
-
 6 "Event 3"
-
 7 "Event 4"
-
 8 "Event 5"
-
 *Edges // para não direcionado ou *Arcs para direcionado
-
 1 4 10
-
 1 5 4
-
 2 4 3
-
 2 5 5
-
 2 6 8
-
 2 8 12
-
 3 4 11
-
 3 7 2
-
 3 8 7
+```

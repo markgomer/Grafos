@@ -4,14 +4,20 @@ import java.util.LinkedList;
 public class Vertice{
 
     private String rotulo;
+    private int indice;
     private LinkedList <Vertice> adjacentes;
     private LinkedList <Integer> pesosArestas;
 
 
-    public Vertice(String rotulo){
+    public Vertice(String rotulo, int indice){
         this.rotulo = rotulo;
+        this.indice = indice;
         adjacentes = new LinkedList<>();
         pesosArestas = new LinkedList<>();
+    }
+
+    public int getIndice() {
+      return this.indice;
     }
 
 
@@ -181,6 +187,17 @@ public class Vertice{
   
     public String rotuloToString() {
       return this.rotulo;
+    }
+
+
+    public String adjacenciasToStr() {
+      StringBuilder builder = new StringBuilder();
+      for(Vertice v : this.adjacentes){
+        builder.append(this.indice).append(" ");
+        builder.append(v.indice).append(" ").append(this.getPeso(v)).append("\n");
+      }
+      String resp = builder.toString();
+      return resp;
     }
 
 

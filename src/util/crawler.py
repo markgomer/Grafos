@@ -59,7 +59,7 @@ while( len(nodes) < min_nodes and len(edges) < min_edges ):
     print(len(nodes),len(edges))
 
 
-file = open("wiki.txt", "w")
+file = open("src/dados/wiki.txt", "w")
 
 for e in edges:
     file.write((e[0]+','+e[1])+'\n')

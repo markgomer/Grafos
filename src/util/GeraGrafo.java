@@ -13,20 +13,27 @@ public class GeraGrafo
    * Cria um grafo direcionado a partir do arquivo "src/dados/data.txt"
    * @return grafo criado
    */
-  public static Grafo fromFile() {
+  public static Grafo fromFile(String PATH) {
     Grafo grafo = new Grafo();
-    Arq.openRead(ARQUIVO);
-    Arq.readLine(); // pular primeira linha...
+    Arq.openRead(PATH);
+    //Arq.readLine(); // pular primeira linha...
+    int count = 0;
     while(Arq.hasNext()) {
       String linha = Arq.readLine();
       String arrLinha[] = linha.split(",");
-      String remetente = arrLinha[0];
+      String origem = arrLinha[0];
       for(int i = 1; i < arrLinha.length; i++) {
-        String destinatario = arrLinha[i];
-        grafo.cria_adjacencia(grafo.criaVertice(remetente), grafo.criaVertice(destinatario));
+        String destino = arrLinha[i];
+        grafo.cria_adjacencia(grafo.criaVertice(origem), grafo.criaVertice(destino));
       }
+      System.out.println(count);
+      count++;
     }
     return grafo;
+  }
+
+  public static Grafo fromFile() {
+    return fromFile(ARQUIVO);
   }
 
   /**

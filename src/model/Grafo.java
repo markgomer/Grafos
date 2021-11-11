@@ -261,6 +261,15 @@ public class Grafo {
      * imprime a lista de adjacências do grafo G
      */
     public void imprime_adjacencias() {for(Vertice v: vertices) System.out.println(v.toString());}
+
+    /**
+     * 
+     */
+    public void imprimeSemRotulos() {
+        for(Vertice v : vertices) {
+            System.out.println(v.adjacenciasToStr());
+        }
+    }
     
     //=====================================================================//
     

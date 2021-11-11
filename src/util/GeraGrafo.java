@@ -60,7 +60,7 @@ public class GeraGrafo
       Arq.readInt(); Arq.readChar();
       String label = Arq.readLine().replaceAll("[\"]", "");        
       grafo.criaVertice(label);
-      System.out.print("Criando vértices: " + i + "/" + qtdVertices + "\r");
+      System.out.print("Criando vértices: " + i + "/" + qtdVertices + "             \r");
     }
     // 2º passo criar arestas
     Arq.readLine();
@@ -70,7 +70,7 @@ public class GeraGrafo
       int peso = Arq.readInt();
       grafo.cria_adjacencia(indexOrigem, indexDestino);
       grafo.seta_peso(indexOrigem, indexDestino, peso);
-      System.out.print("Criando arestas: " + indexOrigem + "/" + indexDestino + "\r");
+      System.out.print("Criando arestas: " + indexOrigem + "->" + indexDestino + "                     \r");
     }
     System.out.println("Pronto!                      ");
     

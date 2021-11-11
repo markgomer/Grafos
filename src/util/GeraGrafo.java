@@ -26,9 +26,10 @@ public class GeraGrafo
         String destino = arrLinha[i];
         grafo.cria_adjacencia(grafo.criaVertice(origem), grafo.criaVertice(destino));
       }
-      System.out.println(count);
+      System.out.print("Criando vértices: " + count + "\r");
       count++;
     }
+    System.out.println("Pronto!                     ");
     return grafo;
   }
 
@@ -59,6 +60,7 @@ public class GeraGrafo
       Arq.readInt(); Arq.readChar();
       String label = Arq.readLine().replaceAll("[\"]", "");        
       grafo.criaVertice(label);
+      System.out.print("Criando vértices: " + i + "/" + qtdVertices + "\r");
     }
     // 2º passo criar arestas
     Arq.readLine();
@@ -68,7 +70,9 @@ public class GeraGrafo
       int peso = Arq.readInt();
       grafo.cria_adjacencia(indexOrigem, indexDestino);
       grafo.seta_peso(indexOrigem, indexDestino, peso);
+      System.out.print("Criando arestas: " + indexOrigem + "/" + indexDestino + "\r");
     }
+    System.out.println("Pronto!                      ");
     
     return grafo;  
   }
@@ -88,15 +92,18 @@ public class GeraGrafo
     
     Arq.print("*Vertices "); Arq.println(numVertices);
     for(int i = 0 ; i<numVertices; i++) {
+      System.out.print("Escrevendo vértice " + i + "/" + numVertices + "\r");
       Vertice v = grafo.getVertice(i);
       Arq.println(Integer.toString(i + 1) + " \"" + v.rotuloToString() + "\"");
     }
     
     Arq.println("*Edges ");
     for(int i = 0; i<numVertices; i++) {
+      System.out.print("Escrevendo arestas " + i + "\r");
       Vertice v = grafo.getVertice(i);
       Arq.print(v.adjacenciasToStr());
     }
+    System.out.println("Pronto!                         ");
 
     Arq.close();
   }

@@ -35,7 +35,7 @@ public class Grafo {
      */
     public Vertice criaVertice(String rotulo) {
         Vertice resp;
-        int indice = this.getNumeroVertices() + 1;
+        int indice = this.getNumeroVertices();
         resp = new Vertice(rotulo, indice);
         vertices.add(resp);
         
@@ -56,7 +56,7 @@ public class Grafo {
         if(jaExisteVerticeComEsseRotulo) {
             resp = vertices.get(index);
         } else {
-            int indice = this.getNumeroVertices() + 1;
+            int indice = this.getNumeroVertices();
             resp = new Vertice(rotulo, indice);
             vertices.add(resp);
         }

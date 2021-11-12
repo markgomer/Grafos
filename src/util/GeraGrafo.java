@@ -42,7 +42,7 @@ public class GeraGrafo
    * @return grafo criado
    */
   public static Grafo fromPajek() {
-    return fromPajek(ARQUIVO);
+    return fromPajek("src/dados/exemplo.pajek");
   }
   /**
    * Cria um grafo a partir de um arquivo no formato pajek

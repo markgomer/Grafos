@@ -4,7 +4,7 @@ import java.util.LinkedList;
 public class Vertice{
 
     private String rotulo;
-    private int indice;
+    private int indice; // começa com 1
     private LinkedList <Vertice> adjacentes;
     private LinkedList <Integer> pesosArestas;
 

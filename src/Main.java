@@ -8,7 +8,7 @@ public class Main {
       //Grafo grafo = GeraGrafo.fromFile("src/dados/wiki.txt");
       //GeraGrafo.toPajek("src/dados/grafoSalvo.pajek", grafo);
       Grafo grafo = GeraGrafo.fromPajek("src/dados/grafoSalvo.pajek");
-      grafo.imprimeSemRotulos();
+      GeraGrafo.toPajek("src/dados/novoGrafo.pajek", grafo);
     }
 
 }

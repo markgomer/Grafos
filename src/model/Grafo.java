@@ -27,13 +27,28 @@ public class Grafo {
 
 
     /**
-     * Cria um vértice e insere no grafo se
-     * vértice ainda não existe no grafo
-     * senão, retorna vértice que já existe
-     * @param rotulo rótulo a ser inserido no vértice
-     * @return Vertice criado ou já existente
+     * Cria um vértice e insere no grafo.
+     * Não checa se vértice existe, então pode
+     * criar vértices duplicados.
+     * @param rotulo rótulo do vértice a ser inserido no grafo
+     * @return Vértice criado
      */
     public Vertice criaVertice(String rotulo) {
+        Vertice resp;
+        int indice = this.getNumeroVertices() + 1;
+        resp = new Vertice(rotulo, indice);
+        vertices.add(resp);
+        
+        return resp;
+    }
+    /**
+     * Cria um vértice e insere no grafo apenas se
+     * um vértice com o mesmo rótulo ainda não existe no grafo,
+     * senão, retorna vértice que já existe.
+     * @param rotulo rótulo do vértice a ser inserido no grafo
+     * @return Vértice criado
+     */
+    public Vertice criaVerticeSeNaoExistir(String rotulo) {
         Vertice resp;
         int index = this.pesquisar(rotulo);
         boolean jaExisteVerticeComEsseRotulo = (index != -1);
@@ -48,6 +63,8 @@ public class Grafo {
         
         return resp;
     }
+
+
     /**
      * cria vértice com rótulo equivalente ao inteiro fornecido
      * @param x rótulo do novo vértice
@@ -86,23 +103,22 @@ public class Grafo {
 
     /**
      * Cria adjacencia entre dois vértices fornecidos
-     * insere vértices no grafo, caso já não estejam presentes
      * se o grafo não for direcionado, também cria adjacência reversa
      * @param v vértice origem
      * @param w vértice destino
      */
     public void cria_adjacencia(Vertice v, Vertice w) {
-        v = criaVertice(v.rotuloToString());
-        w = criaVertice(w.rotuloToString());
         v.cria_adjacencia(w);
         if(!grafoDirecionado) w.cria_adjacencia(v);
     }
+
     /** * /
     public void cria_adjacencia(int i, int j) {
         Vertice v = criaVertice(Integer.toString(i));
         Vertice w = criaVertice(Integer.toString(j));
         cria_adjacencia(v, w);
     }
+    
     /** 
      * Cria adjacência a partir dos índices de vértices já criados
      * @param i índice do vértice de origem
@@ -121,8 +137,8 @@ public class Grafo {
      * @param b rótulo do vértice de destino
      */
     public void cria_adjacencia(String a, String b) {
-        Vertice v = criaVertice(a);
-        Vertice w = criaVertice(b);
+        Vertice v = criaVerticeSeNaoExistir(a);
+        Vertice w = criaVerticeSeNaoExistir(b);
         cria_adjacencia(v, w);
     }
 
@@ -179,6 +195,7 @@ public class Grafo {
     public int getNumeroArestas() {
         int resp = 0;
         for (Vertice v : vertices) resp += v.numeroArestas();
+        if(!grafoDirecionado) resp = resp/2;
         return resp;
     }
 

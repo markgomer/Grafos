@@ -24,12 +24,12 @@ public class GeraGrafo
       String origem = arrLinha[0];
       for(int i = 1; i < arrLinha.length; i++) {
         String destino = arrLinha[i];
-        grafo.cria_adjacencia(grafo.criaVertice(origem), grafo.criaVertice(destino));
+        grafo.cria_adjacencia(origem, destino);
       }
       System.out.print("Criando vértices: " + count + "\r");
       count++;
     }
-    System.out.println("Pronto!                     ");
+    System.out.println("Grafo criado!!                     ");
     return grafo;
   }
 
@@ -72,7 +72,7 @@ public class GeraGrafo
       grafo.seta_peso(indexOrigem, indexDestino, peso);
       System.out.print("Criando arestas: " + indexOrigem + "->" + indexDestino + "                     \r");
     }
-    System.out.println("Pronto!                      ");
+    System.out.println("Grafo carregado!                      ");
     
     return grafo;  
   }
@@ -103,7 +103,7 @@ public class GeraGrafo
       Vertice v = grafo.getVertice(i);
       Arq.print(v.adjacenciasToStr());
     }
-    System.out.println("Pronto!                         ");
+    System.out.println("Grafo salvo!                         ");
 
     Arq.close();
   }
@@ -114,12 +114,12 @@ public class GeraGrafo
    * @param args
    */
   public static void main(String[] args) {
-    Grafo grafo = fromPajek("src/dados/exemplo.pajek");
-    //Grafo grafo = fromFile();
+    //Grafo grafo = fromPajek("src/dados/exemplo.pajek");
+    Grafo grafo = fromFile();
     //Grafo novo = fromPajek("src/dados/grafoSalvo.pajek");
-    grafo.imprime_adjacencias();
+    //grafo.imprime_adjacencias();
 
-    toPajek("src/dados/grafoSalvo.pajek", grafo);
+    toPajek("src/dados/teste.pajek", grafo);
   }
 
 }

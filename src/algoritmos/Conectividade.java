@@ -6,7 +6,6 @@ import java.util.LinkedList;
 
 import model.Grafo;
 import model.Vertice;
-import util.GeraGrafo;
 
 
 public class Conectividade {

@@ -1,5 +1,6 @@
 package model;
 import java.util.LinkedList;
+import java.util.Random;
 
 import util.Bolha;
 
@@ -8,6 +9,8 @@ public class Grafo {
     private LinkedList<Vertice> vertices;
     /**Tipo de ligação presente no grafo */
     private boolean grafoDirecionado;
+    
+    Random r = new Random();
 
     /**
      * cria um grafo vazio e direcionado
@@ -82,6 +85,11 @@ public class Grafo {
      */
     public Vertice getVertice(int index) {
         return this.vertices.get(index);
+    }
+
+    public Vertice getRandomVertice() {
+        int random = this.r.nextInt(vertices.size());
+        return vertices.get(random);
     }
 
     /**

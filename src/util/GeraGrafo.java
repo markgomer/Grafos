@@ -2,6 +2,7 @@ package util;
 import java.io.File;
 import java.io.IOException;
 
+import algoritmos.Conectividade;
 import model.Grafo;
 import model.Vertice;
 
@@ -109,17 +110,60 @@ public class GeraGrafo
   }
 
 
+  private static Grafo geraConexo(int numVertices, int numArestas, boolean direcionado) {
+    Grafo grafo = new Grafo(direcionado);
+    grafo.criaVertice(0);
+    for(int i = 1; i<numVertices; i++) {
+      grafo.criaVertice(i);
+      grafo.cria_adjacencia(i, i-1);
+    }
+    for (int i = 0; i < numArestas-numVertices; i++) {
+      grafo.cria_adjacencia(grafo.getRandomVertice(), grafo.getRandomVertice());
+    }
+    
+    return grafo;
+  }
+  
+
+  private static Grafo geraNaoConexo(int numVertices, int numArestas, boolean direcionado) {
+    Grafo grafo = new Grafo(direcionado);
+    for(int i = 0; i<numVertices-1; i++) grafo.criaVertice(i);
+    
+    for(int i = 0; i<numArestas; i++) grafo.cria_adjacencia(grafo.getRandomVertice(), grafo.getRandomVertice());
+    
+    int ultimoVertice = numVertices;
+    grafo.criaVertice(ultimoVertice);
+
+    return grafo;
+  }
+
+  
+  public static Grafo aleatorio(int numVertices, int numArestas, boolean conexo, boolean direcionado) {
+    Grafo grafo = new Grafo(direcionado);
+
+    if(conexo) {
+      grafo = geraConexo(numVertices, numArestas, direcionado);
+    }
+    else {
+      grafo = geraNaoConexo(numVertices, numArestas, direcionado);
+    }
+    return grafo;
+  }
+
+
   /**
    * Testes
    * @param args
    */
   public static void main(String[] args) {
     //Grafo grafo = fromPajek("src/dados/exemplo.pajek");
-    Grafo grafo = fromFile();
+    Grafo grafo = aleatorio(100, 20000, true, false);
     //Grafo novo = fromPajek("src/dados/grafoSalvo.pajek");
     //grafo.imprime_adjacencias();
+    System.out.println("Numero de arestas: " + grafo.getNumeroArestas());
+    System.out.println(Conectividade.ehConexo(grafo)? "Conexo":"Não conexo");
 
-    toPajek("src/dados/teste.pajek", grafo);
+    toPajek("src/dados/aleatorio.pajek", grafo);
   }
 
 }

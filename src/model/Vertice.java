@@ -218,8 +218,8 @@ public class Vertice{
     public String adjacenciasToStr() {
         StringBuilder builder = new StringBuilder();
         for (Vertice v : this.adjacentes) {
-            builder.append(this.indice).append(" ");
-            builder.append(v.indice).append(" ").append(this.getPeso(v)).append("\n");
+            builder.append(this.indice+1).append(" ");
+            builder.append(v.indice+1).append(" ").append(this.getPeso(v)).append("\n");
         }
         String resp = builder.toString();
         return resp;

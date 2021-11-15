@@ -69,7 +69,7 @@ public class Dijkstra {
         } 
    
         // print the path array 
-        printMinpath(g, menorDistanciaPara); 
+        //printMinpath(g, menorDistanciaPara); 
         return menorDistanciaPara;
     } 
 

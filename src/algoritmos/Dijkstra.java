@@ -12,67 +12,105 @@ public class Dijkstra {
 
 
     // find a vertex with minimum distance
-    private static int minDistance(Grafo g, int path_array[], Boolean sptSet[])   { 
+    private static int minDistance(Grafo g, int menorCaminhoPara[], Boolean jaCalculado[])   { 
         // Initialize min value 
-        int min = Integer.MAX_VALUE, min_index = -1; 
-        for (int v = 0; v < g.getNumeroVertices(); v++) 
-            if (sptSet[v] == false && path_array[v] <= min) { 
-                min = path_array[v]; 
-                min_index = v; 
-            } 
-   
-        return min_index; 
+        int min = Integer.MAX_VALUE, indexMaisPerto = -1; 
+        for (int vertIndex = 0; vertIndex < g.getNumeroVertices(); vertIndex++) 
+            if (jaCalculado[vertIndex] == false && menorCaminhoPara[vertIndex] <= min) { 
+                min = menorCaminhoPara[vertIndex]; 
+                indexMaisPerto = vertIndex; 
+            }
+        return indexMaisPerto; 
     } 
 
    
-    // print the array of distances (path_array)
-    private static void printMinpath(Grafo g, int path_array[])   { 
+    // print the array of distances (menorCaminhoPara)
+    private static void printMinpath(Grafo g, int menorCaminhoPara[])   { 
         System.out.println("Vértice Destino \t Minimum Distance from Source"); 
         for (int i = 0; i < g.getNumeroVertices(); i++) {
             Vertice v = g.getVertice(i);
-            System.out.println(v.rotuloToString() + "\t\t " + path_array[i]); 
+            System.out.println(v.rotuloToString() + "\t\t " + menorCaminhoPara[i]); 
         }
     }
 
     
     // Implementation of Dijkstra's algorithm for graph (adjacency matrix) 
-    public static int[] algo_dijkstra(Grafo g, Vertice src_node)  {
-        int index = g.pesquisar(src_node); 
-        int path_array[] = new int[g.getNumeroVertices()]; // The output array. dist[i] will hold 
+    public static int[] algo_dijkstra(Grafo g, Vertice origem)  {
+        int indexOrigem = g.pesquisar(origem); 
+        int menorDistanciaPara[] = new int[g.getNumeroVertices()]; // The output array. dist[i] will hold 
         // the shortest distance from src to i 
    
         // spt (shortest path set) contains vertices that have shortest path 
-        Boolean sptSet[] = new Boolean[g.getNumeroVertices()]; 
+        Boolean jaCalculado[] = new Boolean[g.getNumeroVertices()]; 
    
         // Initially all the distances are INFINITE and stpSet[] is set to false 
         for (int i = 0; i < g.getNumeroVertices(); i++) { 
-            path_array[i] = Integer.MAX_VALUE;
-            sptSet[i] = false; 
+            menorDistanciaPara[i] = Integer.MAX_VALUE;
+            jaCalculado[i] = false; 
         } 
    
         // Path between vertex and itself is always 0 
-        path_array[index] = 0; 
+        menorDistanciaPara[indexOrigem] = 0; 
 
         // now find shortest path for all vertices  
         for (int count = 0; count < g.getNumeroVertices() - 1; count++) { 
             // call minDistance method to find the vertex with min distance
-            int u = minDistance(g, path_array, sptSet); 
+            int indexVertMaisPerto = minDistance(g, menorDistanciaPara, jaCalculado); 
               // the current vertex u is processed
-            sptSet[u] = true; 
+            jaCalculado[indexVertMaisPerto] = true; 
               // process adjacent nodes of the current vertex
             for (int v = 0; v < g.getNumeroVertices(); v++) 
    
                 // if vertex v not in sptset then update it  
-                if (!sptSet[v] && g.getPeso(u, v) != 0 && path_array[u] != 
-                            Integer.MAX_VALUE && path_array[u] 
-                            + g.getPeso(u, v) < path_array[v]) 
-                            path_array[v] = path_array[u] + g.getPeso(u, v); 
+                if (!jaCalculado[v] && g.getPeso(indexVertMaisPerto, v) != 0 && 
+                        menorDistanciaPara[indexVertMaisPerto] != Integer.MAX_VALUE && 
+                        menorDistanciaPara[indexVertMaisPerto] + g.getPeso(indexVertMaisPerto, v) < menorDistanciaPara[v]) 
+                    menorDistanciaPara[v] = menorDistanciaPara[indexVertMaisPerto] + g.getPeso(indexVertMaisPerto, v); 
         } 
    
         // print the path array 
-        printMinpath(g, path_array); 
-        return path_array;
+        printMinpath(g, menorDistanciaPara); 
+        return menorDistanciaPara;
     } 
+
+
+    // Implementation of Dijkstra's algorithm for graph (adjacency matrix) 
+    public static int algo_dijkstra(Grafo g, Vertice origem, Vertice destino)  {
+        int indexOrigem = g.pesquisar(origem); 
+        int indexDestino = g.pesquisar(destino);
+        int menorDistanciaPara[] = new int[g.getNumeroVertices()]; // The output array. dist[i] will hold 
+   
+        // spt (shortest path set) contains vertices that have shortest path 
+        Boolean jaCalculado[] = new Boolean[g.getNumeroVertices()]; 
+   
+        // Initially all the distances are INFINITE and stpSet[] is set to false 
+        for (int i = 0; i < g.getNumeroVertices(); i++) { 
+            menorDistanciaPara[i] = Integer.MAX_VALUE;
+            jaCalculado[i] = false; 
+        } 
+        // Path between vertex and itself is always 0 
+        menorDistanciaPara[indexOrigem] = 0; 
+
+        // now find shortest path for all vertices  
+        for (int count = 0; count < g.getNumeroVertices() - 1; count++) { 
+            // call minDistance method to find the vertex with min distance
+            int indexMaisPerto = minDistance(g, menorDistanciaPara, jaCalculado); 
+              // the current vertex u is processed
+            jaCalculado[indexMaisPerto] = true; 
+              // process adjacent nodes of the current vertex
+            for (int v = 0; v < g.getNumeroVertices(); v++) 
+   
+                // if vertex v not in sptset then update it  
+                if (!jaCalculado[v] && g.getPeso(indexMaisPerto, v) != 0 && 
+                        menorDistanciaPara[indexMaisPerto] != Integer.MAX_VALUE && 
+                        menorDistanciaPara[indexMaisPerto] + g.getPeso(indexMaisPerto, v) < menorDistanciaPara[v]) 
+                    menorDistanciaPara[v] = menorDistanciaPara[indexMaisPerto] + g.getPeso(indexMaisPerto, v); 
+        } 
+   
+        return menorDistanciaPara[indexDestino];
+    } 
+
+
 
     public static int[] algo_dijkstra(Grafo g, String rotulo) {
         int index = g.pesquisar(rotulo);
@@ -87,7 +125,6 @@ public class Dijkstra {
         resp = todosOsMelhoresCaminhos[destino.getIndice()];
         return resp;
     }
-
 
 
     public static void main(String[] args) {

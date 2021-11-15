@@ -5,6 +5,8 @@ public class Vertice{
 
     private String rotulo;
     private int indice; // começa com 0
+    private boolean visitado = false;
+    private double centralidade;
     private LinkedList <Vertice> adjacentes;
     private LinkedList <Integer> pesosArestas;
 
@@ -16,17 +18,37 @@ public class Vertice{
         pesosArestas = new LinkedList<>();
     }
 
+    
     public int getIndice() {
        return this.indice;
     }
 
 
-    public LinkedList<Vertice> getAdjacentes() {
-        return adjacentes;
+    public void setVisitado(boolean visitado) {
+		this.visitado = visitado;
+	}
+    public boolean getVisitado() {
+		return this.visitado;
+	}
+
+
+    public double getCentralidade() {
+        return centralidade;
     }
+
+
+    public void setCentralidade(double centralidade) {
+        this.centralidade = centralidade;
+    }
+
 
     public Vertice getAdjacente(int index) {
         return adjacentes.get(index);
+    }
+
+
+    public LinkedList<Vertice> getAdjacentes() {
+        return adjacentes;
     }
 
 
@@ -134,7 +156,7 @@ public class Vertice{
 
 
     public LinkedList<Vertice> buscaProfundidade(LinkedList<Vertice> caminho, Vertice procurado) {
-        if( ! (adjacentes.isEmpty()) ) {
+        if( !adjacentes.isEmpty()  && !caminho.contains(this) ) {
             for(Vertice v : adjacentes) {
                 caminho.add(v);
                 if(v.equals(procurado)) {
@@ -157,7 +179,7 @@ public class Vertice{
 
 
     public LinkedList<Vertice> buscaLargura(LinkedList<Vertice> caminho, Vertice procurado) {
-        if (!(adjacentes.isEmpty())) {
+        if (!adjacentes.isEmpty() && !caminho.contains(this) ) {
             for (int i = 0; i < adjacentes.size(); i++) {
                 Vertice v = adjacentes.get(i);
                 caminho.add(v);

@@ -80,14 +80,13 @@ public class Vertice{
      * @return peso da aresta entre os vertices
      */
     public int getPeso(Vertice v) {
-        int resp = 0;
+        int resp = Integer.MAX_VALUE;
         int indiceDoOutro = adjacentes.indexOf(v);
         if(indiceDoOutro != -1) resp = pesosArestas.get(indiceDoOutro);
-        
         return resp;
     }
     public int getPeso(int index) {
-        int resp = 0;
+        int resp = Integer.MAX_VALUE;
         if(index < adjacentes.size()) resp = pesosArestas.get(index);
         return resp;
     }

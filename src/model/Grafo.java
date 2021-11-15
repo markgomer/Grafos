@@ -3,6 +3,7 @@ import java.util.LinkedList;
 import java.util.Random;
 
 import util.Bolha;
+import util.GeraGrafo;
 
 public class Grafo {
     /**Conjunto de vértices contido no grafo */
@@ -374,6 +375,41 @@ public class Grafo {
         return buscaPorDistancia(o, distancia);
     }
 
+    public static void main(String[] args) {
+        Grafo grafo = GeraGrafo.fromFile();
+        //grafo.imprime_adjacencias();
+
+        System.out.print("Numero de vertices do grafo: ");
+        System.out.println(grafo.getNumeroVertices());
+        
+        System.out.print("Numero de arestas do grafo: ");
+        System.out.println(grafo.getNumeroArestas());
+        
+        //grafo.imprime_adjacencias();
+
+        System.out.println("20 maiores: ");
+        grafo.xMaioresGraus(20);
+        System.out.println("20 menores: ");
+        grafo.xMenoresGraus(20);
+
+        System.out.println("=======================\nBusca em profundidade: ");
+        LinkedList<Vertice> caminho = grafo.buscaProfundidade("sandra.brawner@enron.com", "tk.lohman@enron.com");
+        for(Vertice v : caminho) {
+            System.out.println(v.rotuloToString());
+        }
+
+        System.out.println("=======================\nBusca em largura: ");
+        LinkedList<Vertice> caminho2 = grafo.buscaLargura("sandra.brawner@enron.com", "tk.lohman@enron.com");
+        for(Vertice v : caminho2) {
+            System.out.println(v.rotuloToString());
+        }
+        
+        System.out.println("=======================\nBusca por distancia: ");
+        LinkedList<Vertice> grupo = grafo.buscaPorDistancia("sandra.brawner@enron.com", 1);
+        for(Vertice v : grupo) {
+            System.out.println(v.rotuloToString());
+        }
+    }
 
 }
 

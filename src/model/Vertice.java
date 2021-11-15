@@ -17,7 +17,7 @@ public class Vertice{
     }
 
     public int getIndice() {
-      return this.indice;
+       return this.indice;
     }
 
 
@@ -26,7 +26,7 @@ public class Vertice{
     }
 
     public Vertice getAdjacente(int index) {
-      return adjacentes.get(index);
+        return adjacentes.get(index);
     }
 
 
@@ -71,13 +71,13 @@ public class Vertice{
     }
 
     public void setPeso(int index, int peso) {
-      if(index < adjacentes.size()) pesosArestas.get(index);
-      pesosArestas.set(index, peso);
+        if(index < adjacentes.size()) pesosArestas.get(index);
+        pesosArestas.set(index, peso);
     }
     public void setPeso(Vertice v, int peso) {
-      int index = adjacentes.indexOf(v);
-      //if(index == -1) 
-      setPeso(index, peso);
+        int index = adjacentes.indexOf(v);
+        //if(index == -1) 
+        setPeso(index, peso);
     }
 
 
@@ -100,14 +100,14 @@ public class Vertice{
 
 
     public int numeroArestas(){
-      return adjacentes.size();
+        return adjacentes.size();
     }
 
 
     public int somaPesosDasArestas() {
-      int resp = 0;
-      for(int x : pesosArestas) resp += x;
-      return resp;
+        int resp = 0;
+        for(int x : pesosArestas) resp += x;
+        return resp;
     }
 
 
@@ -118,32 +118,32 @@ public class Vertice{
 
 
     public boolean ehAdjacente(Vertice outro) {
-      return adjacentes.contains(outro);
+        return adjacentes.contains(outro);
     }
     public boolean ehAdjacente(String outroRotulo) {
-      boolean resp = false;
-      for(int i = 0; i<adjacentes.size(); i++) {
-        Vertice v = this.adjacentes.get(i);
-        if(v.comparaRotulo(outroRotulo)) {
-          resp = true;
-          i = adjacentes.size();
+        boolean resp = false;
+        for(int i = 0; i<adjacentes.size(); i++) {
+            Vertice v = this.adjacentes.get(i);
+            if(v.comparaRotulo(outroRotulo)) {
+                resp = true;
+                i = adjacentes.size();
+            }
         }
-      }
-      return resp;
+        return resp;
     }
 
 
     public LinkedList<Vertice> buscaProfundidade(LinkedList<Vertice> caminho, Vertice procurado) {
-      if( ! (adjacentes.isEmpty()) ) {
-        for(Vertice v : adjacentes) {
-          caminho.add(v);
-          if(v.equals(procurado)) {
-            return caminho;
-          }
-          v.buscaProfundidade(caminho, procurado);
+        if( ! (adjacentes.isEmpty()) ) {
+            for(Vertice v : adjacentes) {
+                caminho.add(v);
+                if(v.equals(procurado)) {
+                    return caminho;
+                }
+                v.buscaProfundidade(caminho, procurado);
+            }
         }
-      }
-      return caminho;
+        return caminho;
     }
     public LinkedList<Vertice> caminhoEmProfundidade(LinkedList<Vertice> caminho) {
         if( ! (adjacentes.isEmpty()) ) {
@@ -157,66 +157,63 @@ public class Vertice{
 
 
     public LinkedList<Vertice> buscaLargura(LinkedList<Vertice> caminho, Vertice procurado) {
-      if( ! (adjacentes.isEmpty()) ) {
-        for(int i = 0; i < adjacentes.size(); i++) {
-          Vertice v = adjacentes.get(i);
-          caminho.add(v);
-          if(v.equals(procurado)) {
-            i = adjacentes.size();
-          }
+        if (!(adjacentes.isEmpty())) {
+            for (int i = 0; i < adjacentes.size(); i++) {
+                Vertice v = adjacentes.get(i);
+                caminho.add(v);
+                if (v.equals(procurado)) {
+                    i = adjacentes.size();
+                }
+            }
+            for (Vertice v : adjacentes) {
+                v.buscaLargura(caminho, procurado);
+            }
         }
-          for (Vertice v : adjacentes) {
-              v.buscaLargura(caminho, procurado);
-          }
-      }
-      return caminho;
+        return caminho;
     }
 
 
     public LinkedList<Vertice> buscaPorDistancia(LinkedList<Vertice> resp, int distancia) {
-      if( distancia <= 1 ) {
-        // adicionar todos os adjacentes a resposta
-        resp.addAll(adjacentes);
-      }
-      else {
-          for (Vertice v : adjacentes) {
-              distancia--;
-              v.buscaPorDistancia(resp, distancia);
-          }
-      }
+        if (distancia <= 1) {
+            // adicionar todos os adjacentes a resposta
+            resp.addAll(adjacentes);
+        } else {
+            for (Vertice v : adjacentes) {
+                distancia--;
+                v.buscaPorDistancia(resp, distancia);
+            }
+        }
 
-      return resp;
+        return resp;
     }
 
   
     public String rotuloToString() {
-      return this.rotulo;
+        return this.rotulo;
     }
 
 
     public String adjacenciasToStr() {
-      StringBuilder builder = new StringBuilder();
-      for(Vertice v : this.adjacentes){
-        builder.append(this.indice).append(" ");
-        builder.append(v.indice).append(" ").append(this.getPeso(v)).append("\n");
-      }
-      String resp = builder.toString();
-      return resp;
+        StringBuilder builder = new StringBuilder();
+        for (Vertice v : this.adjacentes) {
+            builder.append(this.indice).append(" ");
+            builder.append(v.indice).append(" ").append(this.getPeso(v)).append("\n");
+        }
+        String resp = builder.toString();
+        return resp;
     }
 
 
     @Override
     public String toString() {
-      String resp = "";
-      resp += "Vertice=" + this.rotulo;
-      resp += "\n\tadjacentes" + "(" + this.numeroArestas() + ") => {\n";
-      for(int i = 0; i<adjacentes.size(); i++) {
-        Vertice v = adjacentes.get(i);
-        int x = pesosArestas.get(i);
-        resp += "\t\t" + v.rotulo + ":peso=" + x + "\n";
-      }
-      resp += "}";
-      return resp;
+        String resp = "";
+        for (int i = 0; i < adjacentes.size(); i++) {
+            Vertice v = adjacentes.get(i);
+            int peso = pesosArestas.get(i);
+            resp += this.rotulo + "\t";
+            resp += v.rotulo + "\t" + peso + "\n";
+        }
+        return resp;
     }
 
     

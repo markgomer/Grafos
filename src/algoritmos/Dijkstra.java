@@ -4,11 +4,9 @@ import model.Grafo;
 import model.Vertice;
 import util.GeraGrafo;
 
-import java.util.LinkedList;
-
 public class Dijkstra {
 
-        /************************************************** 
+    /************************************************** 
      * ALGORITMO DE DIJKISTRA
     ***************************************************/
 
@@ -25,15 +23,17 @@ public class Dijkstra {
    
         return min_index; 
     } 
+
    
     // print the array of distances (path_array)
     private static void printMinpath(Grafo g, int path_array[])   { 
-        System.out.println("Vertex# \t Minimum Distance from Source"); 
+        System.out.println("Vértice Destino \t Minimum Distance from Source"); 
         for (int i = 0; i < g.getNumeroVertices(); i++) {
             Vertice v = g.getVertice(i);
-            System.out.println(v.rotuloToString() + " \t\t\t " + path_array[i]); 
+            System.out.println(v.rotuloToString() + "\t\t " + path_array[i]); 
         }
     }
+
     
     // Implementation of Dijkstra's algorithm for graph (adjacency matrix) 
     public static int[] algo_dijkstra(Grafo g, Vertice src_node)  {
@@ -52,6 +52,7 @@ public class Dijkstra {
    
         // Path between vertex and itself is always 0 
         path_array[index] = 0; 
+
         // now find shortest path for all vertices  
         for (int count = 0; count < g.getNumeroVertices() - 1; count++) { 
             // call minDistance method to find the vertex with min distance
@@ -80,44 +81,41 @@ public class Dijkstra {
     }
 
 
+    public static int melhorCaminho(Grafo g, Vertice origem, Vertice destino) {
+        int resp;
+        int[] todosOsMelhoresCaminhos = algo_dijkstra(g, origem);
+        resp = todosOsMelhoresCaminhos[destino.getIndice()];
+        return resp;
+    }
+
+
+
     public static void main(String[] args) {
-        Grafo grafo = GeraGrafo.fromFile();
-        //grafo.imprime_adjacencias();
-
-        System.out.print("Numero de vertices do grafo: ");
-        System.out.println(grafo.getNumeroVertices());
-        
-        System.out.print("Numero de arestas do grafo: ");
-        System.out.println(grafo.getNumeroArestas());
-        
-        //grafo.imprime_adjacencias();
-
-        System.out.println("20 maiores: ");
-        grafo.xMaioresGraus(20);
-        System.out.println("20 menores: ");
-        grafo.xMenoresGraus(20);
-
-        System.out.println("=======================\nBusca em profundidade: ");
-        LinkedList<Vertice> caminho = grafo.buscaProfundidade("sandra.brawner@enron.com", "tk.lohman@enron.com");
-        for(Vertice v : caminho) {
-            System.out.println(v.rotuloToString());
+        Grafo g = new Grafo(true);
+        for (int i = 0; i < 9; i++) {
+            g.criaVertice(i);
         }
 
-        System.out.println("=======================\nBusca em largura: ");
-        LinkedList<Vertice> caminho2 = grafo.buscaLargura("sandra.brawner@enron.com", "tk.lohman@enron.com");
-        for(Vertice v : caminho2) {
-            System.out.println(v.rotuloToString());
-        }
-        
-        System.out.println("=======================\nBusca por distancia: ");
-        LinkedList<Vertice> grupo = grafo.buscaPorDistancia("sandra.brawner@enron.com", 1);
-        for(Vertice v : grupo) {
-            System.out.println(v.rotuloToString());
-        }
-
+		g.cria_adjacencia(0, 1); g.seta_peso(0, 1, 2);
+		g.cria_adjacencia(0, 2); g.seta_peso(0, 2, 1);
+		g.cria_adjacencia(1, 3); g.seta_peso(1, 3, 3);
+		g.cria_adjacencia(1, 4); g.seta_peso(1, 4, 2);
+		g.cria_adjacencia(2, 3); g.seta_peso(2, 3, 1);
+		g.cria_adjacencia(2, 5); g.seta_peso(2, 5, 2);
+		g.cria_adjacencia(3, 4); g.seta_peso(3, 4, 4);
+		g.cria_adjacencia(3, 5); g.seta_peso(3, 5, 3);
+		g.cria_adjacencia(4, 6); g.seta_peso(4, 6, 1);
+		g.cria_adjacencia(5, 6); g.seta_peso(5, 6, 3);
+		g.cria_adjacencia(6, 7); g.seta_peso(6, 7, 2);
+		g.cria_adjacencia(6, 8); g.seta_peso(6, 8, 2);
+		g.cria_adjacencia(7, 8); g.seta_peso(7, 8, 1);
 
         System.out.println("melhor caminho: ");
-        algo_dijkstra(grafo, "sandra.brawner@enron.com");
+        Vertice origem = g.getVertice(0);
+        Vertice destino = g.getVertice(7);
+        int mc = melhorCaminho(g, origem, destino);
+
+        System.out.println(mc);
 
     }
 

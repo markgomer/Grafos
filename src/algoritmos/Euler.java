@@ -5,7 +5,7 @@ import model.Grafo;
 public class Euler {
 
   // testar o método ehEuleriano()
-  static void circuitoEuleriano(Grafo g) {
+  public static void circuitoEuleriano(Grafo g) {
     int result = ehEuleriano(g);
     if (result == 0)
       System.out.println("Grafo não é Euleriano");
@@ -22,23 +22,23 @@ public class Euler {
    * @return 2: euler cycle
    */
   static int ehEuleriano(Grafo g) {
-    // Check if all non-zero degree vertices are connected
+    // checar se grafo é conexo
     if (Conectividade.ehConexo(g) == false)
       return 0;
 
-    // Count vertices with odd degree
+    // contar vértices com grau ímpar
     int odd = 0;
     for (int i = 0; i < g.getNumeroVertices(); i++)
-      // check number of neighbours or degree
+      // checar grau do vértice
       if (g.numeroDeAdjacentes(i) % 2 != 0)
         odd++;
 
-    // Check number of odd vertices
-    if (odd > 2) { // non-eulerian
+    // checar número de vértices ímpares 
+    if (odd > 2) { // não-euleriano
       return 0;
-    } else if (odd == 2) { // semi-eulerian
+    } else if (odd == 2) { // semi-euleriano
       return 1;
-    } else { // eulerian
+    } else { // euleriano
       return 2;
     }
   }

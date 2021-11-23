@@ -139,7 +139,7 @@ public class GeraGrafo
 
   
   public static Grafo aleatorio(int numVertices, int numArestas, boolean conexo, boolean direcionado) {
-    Grafo grafo = new Grafo(direcionado);
+    Grafo grafo;
 
     if(conexo) {
       grafo = geraConexo(numVertices, numArestas, direcionado);
@@ -156,14 +156,15 @@ public class GeraGrafo
    * @param args
    */
   public static void main(String[] args) {
-    //Grafo grafo = fromPajek("src/dados/exemplo.pajek");
-    Grafo grafo = aleatorio(100, 20000, true, false);
+    Grafo grafo = fromPajek("src/dados/exemplo.pajek");
+    //Grafo grafo = aleatorio(100, 20000, true, false);
     //Grafo novo = fromPajek("src/dados/grafoSalvo.pajek");
     //grafo.imprime_adjacencias();
+    grafo.cria_adjacencia(3, 4);
     System.out.println("Numero de arestas: " + grafo.getNumeroArestas());
-    System.out.println(Conectividade.ehConexo(grafo)? "Conexo":"Não conexo");
+    //System.out.println(Conectividade.ehConexo(grafo)? "Conexo":"Não conexo");
 
-    toPajek("src/dados/aleatorio.pajek", grafo);
+    toPajek("src/dados/EXEMPLO2.pajek", grafo);
   }
 
 }

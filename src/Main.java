@@ -9,7 +9,8 @@ public class Main {
       //GeraGrafo.toPajek("src/dados/grafoSalvo.pajek", grafo);
       Grafo grafo = GeraGrafo.fromPajek("src/dados/wiki.net");
       System.out.println("num arestas =" + grafo.getNumeroArestas());
-      //GeraGrafo.toPajek("src/dados/temp.net", grafo);
+      System.out.println(Ciclo.isCyclic(grafo)? "CICLICO" : "NAO CICLICO");
+      Euler.circuitoEuleriano(grafo);
     }
 
 }

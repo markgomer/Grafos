@@ -75,11 +75,11 @@ public class Dijkstra {
 
 
     // Implementation of Dijkstra's algorithm for graph (adjacency matrix) 
-    public static int algo_dijkstra(Grafo g, Vertice origem, Vertice destino)  {
+    public static int algo_dijkstra(Grafo g, Vertice origem, Vertice intermediario)  {
         int indexOrigem = g.pesquisar(origem); 
-        int indexDestino = g.pesquisar(destino);
+        int indexIntermediario = g.pesquisar(intermediario);
         int menorDistanciaPara[] = new int[g.getNumeroVertices()]; // The output array. dist[i] will hold 
-   
+        int numeroDeVezesQueOIntermediarioApareceuNoMelhorCaminho = 0;
         // spt (shortest path set) contains vertices that have shortest path 
         Boolean jaCalculado[] = new Boolean[g.getNumeroVertices()]; 
    
@@ -98,16 +98,19 @@ public class Dijkstra {
               // the current vertex u is processed
             jaCalculado[indexMaisPerto] = true; 
               // process adjacent nodes of the current vertex
-            for (int v = 0; v < g.getNumeroVertices(); v++) 
-   
+            for (int v = 0; v < g.getNumeroVertices(); v++){
                 // if vertex v not in sptset then update it  
                 if (!jaCalculado[v] && g.getPeso(indexMaisPerto, v) != 0 && 
                         menorDistanciaPara[indexMaisPerto] != Integer.MAX_VALUE && 
-                        menorDistanciaPara[indexMaisPerto] + g.getPeso(indexMaisPerto, v) < menorDistanciaPara[v]) 
+                        menorDistanciaPara[indexMaisPerto] + g.getPeso(indexMaisPerto, v) < menorDistanciaPara[v]) {
                     menorDistanciaPara[v] = menorDistanciaPara[indexMaisPerto] + g.getPeso(indexMaisPerto, v); 
+                    if(v == indexIntermediario) numeroDeVezesQueOIntermediarioApareceuNoMelhorCaminho++;
+                }
+                
+            } 
         } 
    
-        return menorDistanciaPara[indexDestino];
+        return numeroDeVezesQueOIntermediarioApareceuNoMelhorCaminho;
     } 
 
 

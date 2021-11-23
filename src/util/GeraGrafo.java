@@ -27,10 +27,10 @@ public class GeraGrafo
         String destino = arrLinha[i];
         grafo.cria_adjacencia(origem, destino);
       }
-      System.out.print("Criando vértices: " + count + "\r");
+      System.out.print("Lendo arquivo e criando adjacências: " + count + "\r");
       count++;
     }
-    System.out.println("Grafo criado!!                     ");
+    System.out.println("Grafo criado!!                                           ");
     return grafo;
   }
 

@@ -30,6 +30,11 @@ public class Grafo {
     }
 
 
+    public boolean ehDirecionado() {
+        return this.grafoDirecionado;
+    }
+
+    
     /**
      * Cria um vértice e insere no grafo.
      * Não checa se vértice existe, então pode
